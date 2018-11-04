@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,7 +29,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView txttemperatura, txtvlaznost,txtvreme1, txtvreme2,txtTajmerStanje;
-    ImageButton btnfontanaosvetljenje, btnfontanaprskalica, btnradio, btnulaznavrata, btnsvetlo1, btnsvetlo2,btnsvetlo3, btnsvetlo4, btnprskalice, btnPrskalica1, btnPrskalica2, btnPrskalica3, btnPrskalica4;
+    ImageButton btnfontanaosvetljenje, btnfontanaprskalica, btnradio, btnulaznavrata, btnsvetlo1, btnsvetlo2,btnsvetlo3,
+            btnsvetlo4, btnprskalice, btnPrskalica1, btnPrskalica2, btnPrskalica3, btnPrskalica4;
     Vrednosti vr;
     boolean prvaPorukaPrskalicaAll = false;
     MqttAndroidClient client;
@@ -45,6 +47,8 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        iconTemperature();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -258,6 +262,15 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
                 }
                 else if (topic.equals("bozaSub/kuca/node2/dvoriste/temperatura")) {
                     txttemperatura.setText(vr.temperaturaNapolje);
+                    int temperatura =  Integer.parseInt(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('°')));
+                    TextView tw = findViewById(R.id.txtMenuSign);
+                    if (temperatura>25) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.sun, 0, 0, 0);
+                    else if (temperatura>15) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloudy, 0, 0, 0);
+                    else if (temperatura>10) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloud, 0, 0, 0);
+                    else if (temperatura>5) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.wind, 0, 0, 0);
+                    else if (temperatura>0) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.rain, 0, 0, 0);
+                    else tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.snow, 0, 0, 0);
+                    tw.setText(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('C')));
                 }
                 else if (topic.equals("bozaSub/kuca/node2/dvoriste/vlaznost")) {
                     txtvlaznost.setText(vr.vlaznostNapolje);
@@ -283,8 +296,14 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
                     else if (poruka.substring(0, 1).equals("0")) btnsvetlo1.setBackgroundResource(R.drawable.btn_circle_off);
                 }
                 else if (topic.equals("bozaSub/kuca/node3/vrata/stanje")) {
-                    if (poruka.substring(0, 1).equals("1")) btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_on);
-                    else if (poruka.substring(0, 1).equals("0")) btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_off);
+                    if (poruka.substring(0, 1).equals("1")) {
+                        btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_on);
+                        btnulaznavrata.setImageResource(R.drawable.unlock);
+                    }
+                    else if (poruka.substring(0, 1).equals("0")) {
+                        btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_off);
+                        btnulaznavrata.setImageResource(R.drawable.lock);
+                    }
                 }
 
             }
@@ -327,8 +346,14 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         if (vr.svetlo4) btnsvetlo4.setBackgroundResource(R.drawable.btn_circle_on);
         else btnsvetlo4.setBackgroundResource(R.drawable.btn_circle_off);
         //ulazna vrata
-        if (vr.ulaznaVrata) btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_on);
-        else btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_off);
+        if (vr.ulaznaVrata) {
+            btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_on);
+            btnulaznavrata.setImageResource(R.drawable.unlock);
+        }
+        else {
+            btnulaznavrata.setBackgroundResource(R.drawable.btn_circle_off);
+            btnulaznavrata.setImageResource(R.drawable.lock);
+        }
         //neonka
         if (vr.svetlo1) btnsvetlo1.setBackgroundResource(R.drawable.btn_circle_on);
         else btnsvetlo1.setBackgroundResource(R.drawable.btn_circle_off);
@@ -451,4 +476,40 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void iconTemperature(){
+        final Thread t2 = new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()) {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CountDownTimer(100, 100) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                    }
+                                    @Override
+                                    public void onFinish() {
+                                        int temperatura =  Integer.parseInt(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('°')));
+                                        TextView tw = findViewById(R.id.txtMenuSign);
+                                        if (temperatura>25) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.sun, 0, 0, 0);
+                                        else if (temperatura>15) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloudy, 0, 0, 0);
+                                        else if (temperatura>10) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloud, 0, 0, 0);
+                                        else if (temperatura>5) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.wind, 0, 0, 0);
+                                        else if (temperatura>0) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.rain, 0, 0, 0);
+                                        else tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.snow, 0, 0, 0);
+                                        tw.setText(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('C')));
+                                    }
+                                }.start();
+                            }});
+                        Thread.sleep(10000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }}}
+        };
+        t2.start();
+    }
+
 }

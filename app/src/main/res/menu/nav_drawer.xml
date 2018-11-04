@@ -7,5 +7,9 @@
         android:title="@string/action_settings"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"/>
-
+    <item
+        android:id="@+id/action_sign"
+        android:title=" "
+        app:showAsAction="always"
+        app:actionLayout="@layout/menu_sign_custom" />
 </menu>

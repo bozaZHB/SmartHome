@@ -1,6 +1,8 @@
 package com.example.zhb.smarthome;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,10 +35,13 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
     Vrednosti vr = new Vrednosti();
     LinearLayout linearLayoutVreme1, linearLayoutVreme2, linearLayoutTrajanje;
     Button btnPromeniUkljuceno, btnPromeniVreme1, btnPromeniVreme1Ok, btnVreme1Odustani ,btnPromeniVreme2, btnPromeniVreme2Ok, btnVreme2Odustani, btnPromeniTrajanje, btnPromeniTrajanjeOk, btnTrajanjeOdustani;
+    Button btnTimeZoneCommit;
     EditText editVreme1, editVreme2;
-    TextView txtTrenutnoStanjeUkljuceno, txtTrenutnoStanjeVreme1, txtTrenutnoStanjeVreme2, txtTrenutnoStanjeTrajanje;
+    TextView txtTrenutnoStanjeUkljuceno, txtTrenutnoStanjeVreme1, txtTrenutnoStanjeVreme2, txtTrenutnoStanjeTrajanje, txtTrenutnoVremeMikrokontroler;
+    TextView txtKonekcijaFontana, txtKonekcijaTerasaNeonka, txtKonekcijaUlaznaVrata;
     MqttAndroidClient client;
-    Spinner spinnerTrajanje;
+    Spinner spinnerTrajanje, spinnerGMT;
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -50,6 +55,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -70,9 +76,22 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         txtTrenutnoStanjeVreme1 = findViewById(R.id.txtTrenutnoStanjeVreme1);
         txtTrenutnoStanjeVreme2 = findViewById(R.id.txtTrenutnoStanjeVreme2);
         txtTrenutnoStanjeTrajanje = findViewById(R.id.txtTrenutnoStanjeTrajanje);
+
+        txtTrenutnoVremeMikrokontroler = findViewById(R.id.txtTrenutnoVremeMikrokontroler);
+        spinnerGMT = findViewById(R.id.spinnerGMT);
+        btnTimeZoneCommit = findViewById(R.id.btnTimeZoneCommit);
+
+        txtKonekcijaFontana = findViewById(R.id.txtKonekcijaFontana);
+        txtKonekcijaTerasaNeonka = findViewById(R.id.txtKonekcijaTerasaNeonka);
+        txtKonekcijaUlaznaVrata = findViewById(R.id.txtKonekcijaUlaznaVrata);
+
         linearLayoutVreme1.setVisibility(View.GONE);
         linearLayoutVreme2.setVisibility(View.GONE);
         linearLayoutTrajanje.setVisibility(View.GONE);
+
+        //ispitivanja admina
+        LinearLayout adminSettings = findViewById(R.id.adminSettings);
+        if(!vr.IMEI) adminSettings.setVisibility(View.GONE);
 
         btnPromeniUkljuceno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,14 +153,50 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 linearLayoutTrajanje.setVisibility(View.GONE);
             }
         });
-
+        //mqtt
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(), vr.mqttBroker , clientId);//"tcp://192.168.0.17:1883"
+        client = new MqttAndroidClient(this.getApplicationContext(), vr.mqttBroker , clientId);
 
+        //spinner za trajanje prskalica
+        if(vr.trajanjePrskalice.equals("5")) spinnerTrajanje.setSelection(0);
+        else if(vr.trajanjePrskalice.equals("10")) spinnerTrajanje.setSelection(1);
+        else if (vr.trajanjePrskalice.equals("15")) spinnerTrajanje.setSelection(2);
+        else if (vr.trajanjePrskalice.equals("20")) spinnerTrajanje.setSelection(3);
 
-        if(vr.trajanjePrskalice.equals("10")) spinnerTrajanje.setSelection(0);
-        else if (vr.trajanjePrskalice.equals("15")) spinnerTrajanje.setSelection(1);
-        else if (vr.trajanjePrskalice.equals("20")) spinnerTrajanje.setSelection(2);
+        txtTrenutnoVremeMikrokontroler.setText("Trenutno vreme u sustemu je "+vr.vremeMikrokontroler+"h"); //vreme na mikrokontroleru
+
+        //
+        //provera konektivnosti sa mikrokontrolerima
+        //
+        //fontana
+        if (vr.nodeFontana) {
+            txtKonekcijaFontana.setText("uspešno");
+            txtKonekcijaFontana.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        else{
+            txtKonekcijaFontana.setText("neuspešno");
+            txtKonekcijaFontana.setTextColor(Color.RED);
+        }
+        //terasa neonka
+        if (vr.nodeTerasaNeonka) {
+            txtKonekcijaTerasaNeonka.setText("uspešno");
+            txtKonekcijaTerasaNeonka.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        else{
+            txtKonekcijaTerasaNeonka.setText("neuspešno");
+            txtKonekcijaTerasaNeonka.setTextColor(Color.RED);
+        }
+        //ulazna vrata
+        if (vr.nodeVrataUlazna) {
+            txtKonekcijaUlaznaVrata.setText("uspešno");
+            txtKonekcijaUlaznaVrata.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        else{
+            txtKonekcijaUlaznaVrata.setText("neuspešno");
+            txtKonekcijaUlaznaVrata.setTextColor(Color.RED);
+        }
+        //kraj konektivnosti
+
     }
 
     public void potvrdi_tajmer_dugme(View view){
@@ -150,9 +205,11 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
             sendCommand("bozaSub/kuca/node1/vreme1",editVreme1.getText().toString());
             sendCommand("bozaSub/kuca/node1/vreme2",editVreme2.getText().toString());
             //sendCommand("bozaSub/kuca/node1/trajanje",editTrajanje.getText().toString());
-            if (spinnerTrajanje.getSelectedItem().toString().equals("10min"))sendCommand("bozaSub/kuca/node1/trajanje","1");
+            if (spinnerTrajanje.getSelectedItem().toString().equals("5min"))sendCommand("bozaSub/kuca/node1/trajanje","0");
+            else if (spinnerTrajanje.getSelectedItem().toString().equals("10min"))sendCommand("bozaSub/kuca/node1/trajanje","1");
             else if (spinnerTrajanje.getSelectedItem().toString().equals("15min"))sendCommand("bozaSub/kuca/node1/trajanje","2");
             else if (spinnerTrajanje.getSelectedItem().toString().equals("20min"))sendCommand("bozaSub/kuca/node1/trajanje","3");
+
         }
         else{
             sendCommand("bozaSub/kuca/node1/timer","0");
@@ -160,6 +217,12 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
         linearLayoutVreme1.setVisibility(View.GONE);
         linearLayoutVreme2.setVisibility(View.GONE);
         linearLayoutTrajanje.setVisibility(View.GONE);
+    }
+
+    //promena vremenske zone
+    public void vremenskaZonaPromena(View view){
+        if (spinnerGMT.getSelectedItem().toString().equals("GMT +1"))sendCommand("bozaSub/kuca/node1/vremenskaZona","1");
+        else if (spinnerGMT.getSelectedItem().toString().equals("GMT +2"))sendCommand("bozaSub/kuca/node1/vremenskaZona","2");
     }
     private void sendCommand(String topic, String message)
     {
@@ -231,6 +294,7 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     ucitavanjeTeksta();
+                    sendCommand("bozaSub/kuca/node1/vremeNaMikrokontroleru","zhb");
                 }
 
                 @Override
@@ -254,7 +318,6 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                 String poruka = new String(message.getPayload());
                 mqtt mq = new mqtt();
                 mq.dolazecePoruke(topic,poruka);
-
 
                 if (topic.equals("bozaSub/kuca/node1/timer")) {
                     if (poruka.equals("1")) {
@@ -284,10 +347,13 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
                     txtTrenutnoStanjeVreme2.setText("Drugo uključivanje prskalice u " +vr.vremePrskalica2+"h");
                     editVreme2.setText(vr.vremePrskalica2);
                 }
-
-                if(vr.trajanjePrskalice.equals("10")) spinnerTrajanje.setSelection(0);
-                else if (vr.trajanjePrskalice.equals("15")) spinnerTrajanje.setSelection(1);
-                else if (vr.trajanjePrskalice.equals("20")) spinnerTrajanje.setSelection(2);
+                else if (topic.equals("bozaSub/kuca/node1/vremeNaMikrokontroleru/stanje")) {
+                    txtTrenutnoVremeMikrokontroler.setText("Trenutno vreme u sustemu je "+vr.vremeMikrokontroler+"h"); //vreme na mikrokontroleru
+                }
+                if(vr.trajanjePrskalice.equals("5")) spinnerTrajanje.setSelection(0);
+                else if(vr.trajanjePrskalice.equals("10")) spinnerTrajanje.setSelection(1);
+                else if (vr.trajanjePrskalice.equals("15")) spinnerTrajanje.setSelection(2);
+                else if (vr.trajanjePrskalice.equals("20")) spinnerTrajanje.setSelection(3);
             }
 
             @Override

@@ -1,5 +1,7 @@
 package com.example.zhb.smarthome;
 
+import static com.example.zhb.smarthome.R.string.temperaturaNapolje;
+
 public class mqtt {
     Vrednosti vr;
 
@@ -83,6 +85,8 @@ public class mqtt {
             else if (poruka.substring(6, 7).equals("0")) vr.neodredjenoFontana = false;
             if (poruka.substring(7, 8).equals("1")) vr.prskalicaTimer = true;
             else if (poruka.substring(7, 8).equals("0")) vr.prskalicaTimer = false;
+
+            vr.nodeFontana = true;
         }
         else if (topic.equals("bozaSub/kuca/node1/timer")) {
             if (poruka.equals("1")) vr.prskalicaTimer = true;
@@ -106,12 +110,19 @@ public class mqtt {
         else if (topic.equals("bozaSub/kuca/node2/neonka/stanje")) {
             if (poruka.equals("1")) vr.svetlo1 = true;
             else if (poruka.equals("0")) vr.svetlo1 = false;
+
+            vr.nodeTerasaNeonka = true;
         }
         else if (topic.equals("bozaSub/kuca/node3/vrata/stanje")) {
             if (poruka.equals("1")) vr.ulaznaVrata = true;
             else if (poruka.equals("0")) vr.ulaznaVrata = false;
-        }
 
+            vr.nodeVrataUlazna = true;
+        }
+        //vreme na mikrokontroleru
+        else if (topic.equals("bozaSub/kuca/node1/vremeNaMikrokontroleru/stanje")) {
+            vr.vremeMikrokontroler = poruka;
+        }
     }
 
 }

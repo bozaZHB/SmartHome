@@ -9,7 +9,7 @@
     <string name="app_klima_hodnik">Klima Hodnik</string>
     <string name="app_klima_kuhinja">Klima Kuhinja</string>
     <string name="app_kucica">Kućica</string>
-
+    <string name="temperaturaNapolje">11°</string>
     <string name="appmenuname">Smart Home Božanić</string>
 
     <string name="navdemo">Home</string>
@@ -79,12 +79,14 @@
     <string name="title_activity_led_control">ledControl</string>
 
     <string-array name="trajanje">
+        <item>5min</item>
         <item>10min</item>
         <item>15min</item>
         <item>20min</item>
     </string-array>
 
-
-
-
+    <string-array name="timeZone">
+        <item>GMT +1</item>
+        <item>GMT +2</item>
+    </string-array>
 </resources>

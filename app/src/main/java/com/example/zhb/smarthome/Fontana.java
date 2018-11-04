@@ -2,6 +2,7 @@ package com.example.zhb.smarthome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -42,6 +44,8 @@ public class Fontana extends AppCompatActivity implements NavigationView.OnNavig
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        iconTemperature();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -88,6 +92,17 @@ public class Fontana extends AppCompatActivity implements NavigationView.OnNavig
                 if (topic.equals("bozaSub/kuca/node1/prskalicaAll/stanje")) {
                     if (prvaPorukaPrskalicaAll)if (poruka.substring(0, 1).equals("0")) Toast.makeText(Fontana.this,"Prskalice su zavšile",Toast.LENGTH_LONG).show();
                     else prvaPorukaPrskalicaAll = true;
+                }
+                if (topic.equals("bozaSub/kuca/node2/dvoriste/temperatura")) {
+                    int temperatura =  Integer.parseInt(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('°')));
+                    TextView tw = findViewById(R.id.txtMenuSign);
+                    if (temperatura>25) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.sun, 0, 0, 0);
+                    else if (temperatura>15) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloudy, 0, 0, 0);
+                    else if (temperatura>10) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloud, 0, 0, 0);
+                    else if (temperatura>5) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.wind, 0, 0, 0);
+                    else if (temperatura>0) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.rain, 0, 0, 0);
+                    else tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.snow, 0, 0, 0);
+                    tw.setText(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('C')));
                 }
             }
 
@@ -211,4 +226,40 @@ public class Fontana extends AppCompatActivity implements NavigationView.OnNavig
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void iconTemperature(){
+        final Thread t2 = new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()) {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CountDownTimer(100, 100) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                    }
+                                    @Override
+                                    public void onFinish() {
+                                        int temperatura =  Integer.parseInt(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('°')));
+                                        TextView tw = findViewById(R.id.txtMenuSign);
+                                        if (temperatura>25) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.sun, 0, 0, 0);
+                                        else if (temperatura>15) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloudy, 0, 0, 0);
+                                        else if (temperatura>10) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloud, 0, 0, 0);
+                                        else if (temperatura>5) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.wind, 0, 0, 0);
+                                        else if (temperatura>0) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.rain, 0, 0, 0);
+                                        else tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.snow, 0, 0, 0);
+                                        tw.setText(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('C')));
+                                    }
+                                }.start();
+                            }});
+                        Thread.sleep(10000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }}}
+        };
+        t2.start();
+    }
+
 }

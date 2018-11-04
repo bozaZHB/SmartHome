@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginBottom="50dp"
     android:layout_marginRight="20dp"
     android:layout_height="match_parent">
 
+    <!--Fontana-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/podesavanjeFontane"
         android:textSize="@dimen/velicina_slova_dvoriste_heder"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -168,6 +173,133 @@
         android:layout_gravity="right"
         android:paddingRight="0dp"
         android:layout_marginRight="0dp"
+        android:gravity="center"
         android:onClick="potvrdi_tajmer_dugme"
         android:layout_marginTop="5dp"/>
+    <!--Vreme-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/adminSettings">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vreme:"
+        android:textSize="@dimen/velicina_slova_dvoriste_heder"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/txtTrenutnoVremeMikrokontroler"
+        android:text="Trenutno vreme u sistemu je ..."
+        android:gravity="left|center_vertical"/>
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:text="Željena GMT:"
+            android:gravity="left|center_vertical"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerGMT"
+            android:entries="@array/timeZone"
+            ></Spinner>
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btnTimeZoneCommit"
+            android:layout_height="35dp"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:onClick="vremenskaZonaPromena"
+            android:text="OK"/>
+    </LinearLayout>
+    <!--Konektivnost-->
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Konektivnost:"
+        android:textSize="@dimen/velicina_slova_dvoriste_heder"/>
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Mikrokontroler fontana:"
+            android:gravity="left|center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:id="@+id/txtKonekcijaFontana"
+            android:text="neuspešno"
+            android:paddingRight="5dp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Mikrokontroler terasa:"
+            android:gravity="left|center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:id="@+id/txtKonekcijaTerasaNeonka"
+            android:paddingRight="5dp"
+            android:text="neuspešno"
+            android:gravity="center"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Mikrokontroler ulazna vrata:"
+            android:gravity="left|center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:id="@+id/txtKonekcijaUlaznaVrata"
+            android:text="neuspešno"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
 </LinearLayout>
+</LinearLayout>
+</ScrollView>

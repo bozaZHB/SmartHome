@@ -2,6 +2,7 @@ package com.example.zhb.smarthome;
 
 public class Vrednosti {
     //senzori
+    public static boolean IMEI;
     public static String mqttBroker = "tcp://192.168.0.100:1883";//"tcp://192.168.0.100:1883"  "tcp://iot.eclipse.org:1883" tcp://broker.mqttdashboard.com
 
     public static String temperaturaNapolje = "22°C";
@@ -10,8 +11,6 @@ public class Vrednosti {
     public static String vlaznostBoravak = "65%";
     public static String temperaturaHodnik = "52°C";
     public static String vlaznostHodnik = "75%";
-
-    public static boolean proveraKonektivnostiNode1= false;
 
     public static boolean prskalicaAll = false;
     public static boolean prskalica1 = false;
@@ -34,6 +33,7 @@ public class Vrednosti {
     public static boolean kucicaRadio = false;
     public static boolean ulaznaVrata = false;
     public static boolean neodredjenoFontana = false;
+    public static String vremeMikrokontroler = "10:00"; //vreme na mikrokontroleru
     //tajmeri
     public static boolean prskalicaTimer = true;
     public static String vremePrskalica1 = "11:00";
@@ -51,6 +51,10 @@ public class Vrednosti {
     public static boolean klimaKuhinjaTimer = false;
     public static String vremeKlimaKuhinja = "10:00";
     public static String komandaKlimaKuhinja = "on";
+    //provera konektivnosti
+    public static boolean nodeFontana = false;
+    public static boolean nodeTerasaNeonka = false;
+    public static boolean nodeVrataUlazna = false;
 
 
 

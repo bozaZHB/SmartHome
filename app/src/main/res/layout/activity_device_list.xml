@@ -23,6 +23,6 @@
         app:itemIconTint="@color/colorNavText"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
-        android:background="@color/colorShop" />
 
+        android:background="@drawable/background_navigation" />
 </android.support.v4.widget.DrawerLayout>

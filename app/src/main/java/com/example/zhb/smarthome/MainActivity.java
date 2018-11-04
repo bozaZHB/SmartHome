@@ -1,6 +1,11 @@
 package com.example.zhb.smarthome;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.opengl.Visibility;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -10,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,11 +44,15 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     MqttAndroidClient client;
     Vrednosti vr;
-    TextView txtObavestenje;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    TextView txtObavestenje, txtLakuNoc, txtFontanaPumpa, txtOsvetljenjeFontana, txtTrenutniDatum;
     private TextSwitcher textSwitcher,textSwitcher2,textSwitcher3;
     private int stringIndex = 0;
     private int stringIndex2 = 0;
@@ -63,10 +73,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
+        vr = new Vrednosti();
+
         txtObavestenje = findViewById(R.id.txtObavestenje);
+        txtLakuNoc = findViewById(R.id.txtLakuNoc);
+        txtFontanaPumpa = findViewById(R.id.txtFontanaPrskalica);
+        txtOsvetljenjeFontana = findViewById(R.id.txtOsvetljenjeFontane);
+        txtTrenutniDatum = findViewById(R.id.txtTrenutniDatum);
+        //ucitavanje temperature za ikonicu
+        iconTemperature();
+        //trenutni datum
+        txtTrenutniDatum.setText(getDateTimeMounth() + " " + getDateTimeYear());
+        //kraj trenutni datum
+
+        //da li je IMEI admin
+        if(!vr.IMEI) txtObavestenje.setVisibility(View.GONE);
+
+        //broj konektovanih mikrokontrolera
+        int brojKonektovanih = 0;
+        if (vr.nodeFontana) brojKonektovanih++;
+        if (vr.nodeTerasaNeonka) brojKonektovanih++;
+        if (vr.nodeVrataUlazna) brojKonektovanih++;
+        txtObavestenje.setText(brojKonektovanih+"/3");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //osvetljenje fontane
         imageButtonOsvetljenjeFontane =findViewById(R.id.imageButtonOsvetljenjeFontane);
 
-        vr = new Vrednosti();
+
 
         imageButtonOsvetljenjeFontane.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,15 +150,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         textSwitcher3 = findViewById(R.id.textSwither3);
         imageSwitcher = findViewById(R.id.imageSwither);
 
-
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
                 ImageView imageView = new ImageView(getApplicationContext());
                 imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                imageView.setLayoutParams(
-                        new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+                imageView.setLayoutParams(new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 return imageView;
             }
         });
@@ -144,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     textSwitcher.setText(row[stringIndex]);
                                 } else {
                                     textSwitcher.setText(row[++stringIndex]);
-
                                 }
 
                                 if (i < images.length) {
@@ -172,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 }.start();
                                 new CountDownTimer(200, 100) {
-
                                     @Override
                                     public void onTick(long millisUntilFinished) {
                                         // do something after 1s
@@ -191,8 +217,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 }.start();
                             }
                         });
-                        Thread.sleep(1000);
-                        //sendCommand("bozaSub/kuca/node1/ping","s");
                         Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -200,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         };
-
 
         Animation in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.in);
         Animation out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.out);
@@ -252,14 +275,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         client = new MqttAndroidClient(this.getApplicationContext(), vr.mqttBroker , clientId);
 
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshList();
+            }
+        });
+
     }
     private boolean proveraLakuNoc(){
         if(vr.prskalicaAll==false && vr.dvoristeRadio==false && vr.neodredjenoFontana==false && vr.svetlo1==false && vr.fontanaPrskalica==false) return true;
         else return false;
     }
+
     public void onStart(){
         super.onStart();
-
         context = getApplicationContext(); //za toast u tredu
         //on start za pozadinu dugmica
         if (proveraLakuNoc()) imageButtonLakuNoc.setBackgroundResource(R.drawable.btn_circle_on);
@@ -273,13 +304,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    ucitavanjeTeksta();
-                    sendCommand("bozaSub/kuca/node1/stanje","s");
+                    try {
+                        ucitavanjeTeksta();
+                        //sendCommand("bozaSub/kuca/node1/stanje","s");
+                    }catch (Exception e){
+
+                    }
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    //Toast.makeText(MainActivity.this,"Problem sa konekcijom sa brokerom",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "nece da se upari", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (MqttException e) {
@@ -302,9 +337,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else if (topic.equals("bozaSub/kuca/node2/dvoriste/vlaznost")) {
                     row3[0] = "vlažnost: "+vr.vlaznostNapolje;
-                }else if (topic.equals("bozaSub/kuca/node1/stanje/stanje")) {
-                    vr.proveraKonektivnostiNode1 = true;
-                    txtObavestenje.setText("OK");
                 }
 
                 if (vr.fontanaPrskalica) imageButtonFontanaPrskalica.setBackgroundResource(R.drawable.btn_circle_on);
@@ -321,8 +353,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
-
-
 
     @Override
     protected void onDestroy() {
@@ -355,13 +385,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void sendCommand(String topic, String message)
     {
         try{
-            client.publish(topic,message.getBytes(),0,false);
+            if (client.isConnected()) client.publish(topic,message.getBytes(),0,false);
+            else Toast.makeText(context, "Ne postoji konekcija sa serverom", Toast.LENGTH_SHORT).show();
         }catch (MqttException e){
-            e.printStackTrace();
+            finish();
         }
-    }
-    public void SK1(View v) {
-        sendCommand("bozaSub/kuca/node1/stanje","s");
     }
     @Override
     public void onBackPressed(){
@@ -373,11 +401,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
+
+        /*final MenuItem item = menu.findItem(R.id.action_sign);
+        TextView cartCount = (TextView) item.getActionView().findViewById(R.id.txtMenuSign);
+        cartCount.setText("10");*/
         return true;
     }
 
@@ -391,6 +421,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             //return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -437,5 +468,98 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private String getDateTimeYear() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy"); //yyyy/MM/dd HH:mm:ss
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+    private String getDateTimeMounth() {
+        DateFormat dateFormat = new SimpleDateFormat("MM"); //yyyy/MM/dd HH:mm:ss
+        Date date = new Date();
+        switch (dateFormat.format(date)){
+            case "01":
+                return "JANUAR";
+            case "02":
+                return "FEBRUAR";
+            case "03":
+                return "MART";
+            case "04":
+                return "APRIL";
+            case "05":
+                return "MAJ";
+            case "06":
+                return "JUN";
+            case "07":
+                return "JUL";
+            case "08":
+                return "AVGUST";
+            case "09":
+                return "SEPTEMBAR";
+            case "10":
+                return "OKTOBAR";
+            case "11":
+                return "NOVEMBAR";
+            case "12":
+                return "DECEMBAR";
+            default:
+                return "GREŠKA";
+        }
+    }
+
+
+
+    private void iconTemperature() {
+        final Thread t2 = new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()) {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CountDownTimer(100, 100) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                    }
+                                    @Override
+                                    public void onFinish() {
+                                        int temperatura =  Integer.parseInt(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('°')));
+                                        TextView tw = findViewById(R.id.txtMenuSign);
+                                        if (temperatura>25) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.sun, 0, 0, 0);
+                                        else if (temperatura>15) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloudy, 0, 0, 0);
+                                        else if (temperatura>10) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.cloud, 0, 0, 0);
+                                        else if (temperatura>5) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.wind, 0, 0, 0);
+                                        else if (temperatura>0) tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.rain, 0, 0, 0);
+                                        else tw.setCompoundDrawablesWithIntrinsicBounds( R.drawable.snow, 0, 0, 0);
+                                        tw.setText(vr.temperaturaNapolje.substring(0, vr.temperaturaNapolje.indexOf('C')));
+                                    }
+                                }.start();
+                        }});
+                        Thread.sleep(10000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }}}
+        };
+        t2.start();
+    }
+
+    private void refreshList() {
+
+        sendCommand("bozaSub/kuca/node1/stanje","s");
+        zhbToast("UČITAVANJE STANJA...", false);
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void zhbToast(String sadrzaj, boolean kratkoTrajanje) {
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.toast_custom, null);
+        ((TextView) layout.findViewById(android.R.id.message)).setText(sadrzaj);
+        Toast toast = new Toast(this);
+        toast.setGravity(Gravity.BOTTOM, 0, 70);
+        toast.setDuration(kratkoTrajanje? 1 : 0);
+        toast.setView(layout);
+        toast.show();
     }
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/svetlozelena">
+    android:background="@drawable/background_splash">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -94,8 +94,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/fontana_prskalica" />
         </LinearLayout>
@@ -123,8 +121,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/steker" />
         </LinearLayout>
@@ -144,15 +140,13 @@
                 android:background="@drawable/btn_circle_off"
                 android:padding="13dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/locked" />
+                android:src="@drawable/lock" />
 
             <TextView
                 android:id="@+id/txtVrataUlazna"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/ulazna_vrata" />
         </LinearLayout>
@@ -179,8 +173,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/radio" />
         </LinearLayout>
@@ -214,8 +206,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/svetlo1" />
         </LinearLayout>
@@ -243,8 +233,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/svetlo2" />
         </LinearLayout>
@@ -272,8 +260,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/svetlo3" />
         </LinearLayout>
@@ -300,8 +286,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/svetlo4" />
         </LinearLayout>
@@ -312,10 +296,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/plavaSlova"
         android:textStyle="bold"
         android:textSize="@dimen/velicina_slova_dvoriste_heder"
-        android:fontFamily="sans-serif-condensed"
         android:text="@string/prsklalice" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
@@ -337,11 +319,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textColor="@color/plavaSlova"
                 android:layout_marginBottom="5dp"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif-condensed"
                 android:text="@string/prsklaliceVremeHeder" />
             <TextView
                 android:id="@+id/txtprsklaliceVreme1"
@@ -349,9 +329,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/plavaSlova"
                 android:textStyle="italic"
-                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prsklaliceVreme1" />
             <TextView
@@ -360,9 +338,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/plavaSlova"
                 android:textStyle="italic"
-                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prsklaliceVreme2" />
             <TextView
@@ -370,12 +346,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textColor="@color/plavaSlova"
                 android:layout_marginBottom="5dp"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:textStyle="bold"
-                android:layout_marginTop="7dp"
-                android:fontFamily="sans-serif-condensed"/>
+                android:layout_marginTop="7dp"/>
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -399,8 +373,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:textColor="@color/crvena"
-                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/pustiOdmahPrskalicu" />
         </LinearLayout>
@@ -435,8 +407,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica1" />
         </LinearLayout>
@@ -464,8 +434,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica2" />
         </LinearLayout>
@@ -493,8 +461,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica3" />
         </LinearLayout>
@@ -521,8 +487,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica4" />
         </LinearLayout>

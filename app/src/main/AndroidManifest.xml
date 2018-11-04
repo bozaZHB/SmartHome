@@ -1,62 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.zhb.smarthome">
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission
+        android:name="android.permission.UPDATE_DEVICE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+
+        <activity
+            android:name=".Dvoriste"
+            android:label="Dvorište"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Fontana"
+            android:label="Fontana"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Grejanje"
+            android:label="Grejanje"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Kapija"
+            android:label="Kapija"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KlimaH"
+            android:label="Klima Hodnik"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KlimaK"
+            android:label="Klima Kuhinja"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Kucica"
+            android:label="Kućica"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings"
+            android:label="Podedšavanja"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".DeviceList"
+            android:label="Spisak povezanih uređaja"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RuterControl"
+            android:label="Potkrovlje"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DialogWiFi"
+            android:theme="@style/AppTheme.MyDialog" />
 
-        <service android:name="org.eclipse.paho.android.service.MqttService" >
-        </service>
+        <receiver android:name=".WidgetProviderUnlockDoor">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
-        <activity android:name=".Dvoriste"
-            android:label="Dvorište" />
-
-        <activity android:name=".Fontana"
-            android:label="Daljinski fontane" />
-
-        <activity android:name=".Grejanje"
-            android:label="Grejanje" />
-
-        <activity android:name=".Kapija"
-            android:label="Kapija" />
-
-        <activity android:name=".KlimaH"
-            android:label="Klima Hodnik" />
-
-        <activity android:name=".KlimaK"
-            android:label="Klima Kuhinja" />
-
-        <activity android:name=".Kucica"
-            android:label="Kućica" />
-        <activity android:name=".Settings"
-            android:parentActivityName=".MainActivity"
-            android:label="Podedšavanja">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
-        </activity>
-        <activity android:name=".DeviceList"
-            android:label="Spisak povezanih uređaja" />
-        <activity android:name=".RuterControl"
-            android:label="Potkrovlje" />
+                android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info" />
+        </receiver>
+
+        <service
+            android:name="com.example.zhb.smarthome.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,2 +1,0 @@
-# SmartHome
-Android Aplikacija

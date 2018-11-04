@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/svetlozelena">
+    android:background="@drawable/background_splash">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="15dp"
-        android:background="@color/colorShop">
+        android:background="@drawable/background_provera">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -54,7 +58,7 @@
             android:gravity="center"
             android:id="@+id/txtObavestenje"
             android:text="provera..."
-            android:textColor="@color/colorNavText"/>
+            android:textColor="#BBffffff"/>
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
@@ -84,13 +88,12 @@
 
 
             <TextView
-                android:id="@+id/txtFontanaOsvetljenje"
+                android:id="@+id/txtLakuNoc"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
-                android:textSize="@dimen/velicina_slova_dvoriste"
+                android:textSize="15sp"
                 android:text="@string/lakuNoc" />
         </LinearLayout>
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -117,8 +120,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
-                android:textSize="@dimen/velicina_slova_dvoriste"
+                android:textSize="15sp"
                 android:text="@string/fontana_prskalica" />
         </LinearLayout>
 
@@ -135,20 +137,30 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/btn_circle_sivo"
+                android:background="@drawable/dugme_proba"
                 android:padding="13dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/light_bulb"/>
 
             <TextView
-                android:id="@+id/txtVrataUlazna"
+                android:id="@+id/txtOsvetljenjeFontane"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/plavaSlova"
-                android:textSize="@dimen/velicina_slova_dvoriste"
+                android:textSize="13sp"
                 android:text="@string/fontanaOsvetljenje" />
         </LinearLayout>
+
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTrenutniDatum"
+        android:text="Septembar 2018"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp"/>
 </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
