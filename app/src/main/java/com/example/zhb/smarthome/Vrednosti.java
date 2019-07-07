@@ -17,6 +17,8 @@ public class Vrednosti {
     public static boolean prskalica2 = false;
     public static boolean prskalica3 = false;
     public static boolean prskalica4 = false;
+    public static boolean prskalica5 = false;
+    public static boolean prskalica6 = false;
     public static boolean fontanaPrskalica = false;
     public static boolean fontanaSvetlo = false;
     public static boolean garazaSpolna = false;

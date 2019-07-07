@@ -358,6 +358,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
             <ImageButton
                 android:id="@+id/imageButtonPrskalica"
                 android:layout_width="90dp"
@@ -464,6 +465,16 @@
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica3" />
         </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -477,11 +488,10 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/btn_circle_off"
+                android:background="@drawable/btn_circle_on"
                 android:padding="13dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/nature" />
-
             <TextView
                 android:id="@+id/txtPrskalica4"
                 android:layout_width="match_parent"
@@ -490,8 +500,65 @@
                 android:textSize="@dimen/velicina_slova_dvoriste"
                 android:text="@string/prskalica4" />
         </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+            <ImageButton
+                android:id="@+id/imageButtonPrskalica5"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/btn_circle_on"
+                android:padding="13dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/nature" />
+
+
+            <TextView
+                android:id="@+id/txtPrskalica5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textSize="@dimen/velicina_slova_dvoriste"
+                android:text="@string/prskalica5" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+            <ImageButton
+                android:id="@+id/imageButtonPrskalica6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/btn_circle_off"
+                android:padding="13dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/nature" />
+
+
+            <TextView
+                android:id="@+id/txtPrskalica6"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textSize="@dimen/velicina_slova_dvoriste"
+                android:text="@string/prskalica6" />
+        </LinearLayout>
+
 
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"></LinearLayout>

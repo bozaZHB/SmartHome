@@ -12,35 +12,65 @@ public class mqtt {
                 vr.prskalica2 = false;
                 vr.prskalica3 = false;
                 vr.prskalica4 = false;
+                vr.prskalica5 = false;
+                vr.prskalica6 = false;
             }
             else if (poruka.substring(0, 1).equals("0")) vr.prskalica1 = false;
         }
         else if (topic.equals("bozaSub/kuca/node1/prskalica2/stanje")) {
             if (poruka.substring(0, 1).equals("1")) {
-                vr.prskalica2 = true;
                 vr.prskalica1 = false;
+                vr.prskalica2 = true;
                 vr.prskalica3 = false;
                 vr.prskalica4 = false;
+                vr.prskalica5 = false;
+                vr.prskalica6 = false;
             }
             else if (poruka.substring(0, 1).equals("0")) vr.prskalica2 = false;
         }
         else if (topic.equals("bozaSub/kuca/node1/prskalica3/stanje")) {
             if (poruka.substring(0, 1).equals("1")) {
-                vr.prskalica3 = true;
                 vr.prskalica1 = false;
                 vr.prskalica2 = false;
+                vr.prskalica3 = true;
                 vr.prskalica4 = false;
+                vr.prskalica5 = false;
+                vr.prskalica6 = false;
             }
             else if (poruka.substring(0, 1).equals("0")) vr.prskalica3 = false;
         }
         else if (topic.equals("bozaSub/kuca/node1/prskalica4/stanje")) {
             if (poruka.substring(0, 1).equals("1")) {
-                vr.prskalica4 = true;
                 vr.prskalica1 = false;
                 vr.prskalica2 = false;
                 vr.prskalica3 = false;
+                vr.prskalica4 = true;
+                vr.prskalica5 = false;
+                vr.prskalica6 = false;
             }
             else if (poruka.substring(0, 1).equals("0")) vr.prskalica4 = false;
+        }
+        else if (topic.equals("bozaSub/kuca/node1/prskalica5/stanje")) {
+            if (poruka.substring(0, 1).equals("1")) {
+                vr.prskalica1 = false;
+                vr.prskalica2 = false;
+                vr.prskalica3 = false;
+                vr.prskalica4 = false;
+                vr.prskalica5 = true;
+                vr.prskalica6 = false;
+            }
+            else if (poruka.substring(0, 1).equals("0")) vr.prskalica5 = false;
+        }
+        else if (topic.equals("bozaSub/kuca/node1/prskalica6/stanje")) {
+            if (poruka.substring(0, 1).equals("1")) {
+                vr.prskalica1 = false;
+                vr.prskalica2 = false;
+                vr.prskalica3 = false;
+                vr.prskalica4 = false;
+                vr.prskalica5 = false;
+                vr.prskalica6 = true;
+            }
+            else if (poruka.substring(0, 1).equals("0")) vr.prskalica6 = false;
         }
         else if (topic.equals("bozaSub/kuca/node1/fontanaPumpa/stanje")) {
             if (poruka.substring(0, 1).equals("1")) vr.fontanaPrskalica = true;
@@ -62,6 +92,8 @@ public class mqtt {
                 vr.prskalica2 = false;
                 vr.prskalica3 = false;
                 vr.prskalica4 = false;
+                vr.prskalica5 = false;
+                vr.prskalica6 = false;
             }
         }
         else if (topic.equals("bozaSub/kuca/node1/stanje/stanje")) {
@@ -73,18 +105,23 @@ public class mqtt {
             else if (poruka.substring(2, 3).equals("0")) vr.prskalica3 = false;
             if (poruka.substring(3, 4).equals("1")) vr.prskalica4 = true;
             else if (poruka.substring(3, 4).equals("0")) vr.prskalica4 = false;
-            if (poruka.substring(0, 1).equals("1") || poruka.substring(1, 2).equals("1") || poruka.substring(2, 3).equals("1") || poruka.substring(3, 4).equals("1"))
+            if (poruka.substring(4, 5).equals("1")) vr.prskalica5 = true;
+            else if (poruka.substring(4, 5).equals("0")) vr.prskalica5 = false;
+            if (poruka.substring(5, 6).equals("1")) vr.prskalica6 = true;
+            else if (poruka.substring(5, 6).equals("0")) vr.prskalica6 = false;
+
+            if (poruka.substring(0, 1).equals("1") || poruka.substring(1, 2).equals("1") || poruka.substring(2, 3).equals("1") || poruka.substring(3, 4).equals("1") || poruka.substring(4, 5).equals("1") || poruka.substring(5, 6).equals("1"))
                 vr.prskalicaAll = true;
             else vr.prskalicaAll = false;
 
-            if (poruka.substring(4, 5).equals("1")) vr.fontanaPrskalica = true;
-            else if (poruka.substring(4, 5).equals("0")) vr.fontanaPrskalica = false;
-            if (poruka.substring(5, 6).equals("1")) vr.dvoristeRadio = true;
-            else if (poruka.substring(5, 6).equals("0")) vr.dvoristeRadio = false;
-            if (poruka.substring(6, 7).equals("1")) vr.neodredjenoFontana = true;
-            else if (poruka.substring(6, 7).equals("0")) vr.neodredjenoFontana = false;
-            if (poruka.substring(7, 8).equals("1")) vr.prskalicaTimer = true;
-            else if (poruka.substring(7, 8).equals("0")) vr.prskalicaTimer = false;
+            if (poruka.substring(6, 7).equals("1")) vr.fontanaPrskalica = true;
+            else if (poruka.substring(6, 7).equals("0")) vr.fontanaPrskalica = false;
+
+            if (poruka.substring(7, 8).equals("1")) vr.neodredjenoFontana = true;
+            else if (poruka.substring(7, 8).equals("0")) vr.neodredjenoFontana = false;
+
+            if (poruka.substring(8, 9).equals("1")) vr.prskalicaTimer = true;
+            else if (poruka.substring(8, 9).equals("0")) vr.prskalicaTimer = false;
 
             vr.nodeFontana = true;
         }

@@ -75,6 +75,8 @@
     <string name="prskalica2">Prskalica 2</string>
     <string name="prskalica3">Prskalica 3</string>
     <string name="prskalica4">Prskalica 4</string>
+    <string name="prskalica5">Prskalica 5</string>
+    <string name="prskalica6">Prskalica 6</string>
 
     <string name="title_activity_led_control">ledControl</string>
 

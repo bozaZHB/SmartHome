@@ -30,7 +30,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView txttemperatura, txtvlaznost,txtvreme1, txtvreme2,txtTajmerStanje;
     ImageButton btnfontanaosvetljenje, btnfontanaprskalica, btnradio, btnulaznavrata, btnsvetlo1, btnsvetlo2,btnsvetlo3,
-            btnsvetlo4, btnprskalice, btnPrskalica1, btnPrskalica2, btnPrskalica3, btnPrskalica4;
+            btnsvetlo4, btnprskalice, btnPrskalica1, btnPrskalica2, btnPrskalica3, btnPrskalica4, btnPrskalica5, btnPrskalica6;
     Vrednosti vr;
     boolean prvaPorukaPrskalicaAll = false;
     MqttAndroidClient client;
@@ -73,6 +73,8 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         btnPrskalica2 = (ImageButton)findViewById(R.id.imageButtonPrskalica2);
         btnPrskalica3 = (ImageButton)findViewById(R.id.imageButtonPrskalica3);
         btnPrskalica4 = (ImageButton)findViewById(R.id.imageButtonPrskalica4);
+        btnPrskalica5 = (ImageButton)findViewById(R.id.imageButtonPrskalica5);
+        btnPrskalica6 = (ImageButton)findViewById(R.id.imageButtonPrskalica6);
 
         //fontana osvetljenje
         btnfontanaosvetljenje.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +110,8 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         btnradio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendCommand("bozaSub/kuca/node1/radio",vr.dvoristeRadio==true?"0":"1" );
+                // izbaceno iz upotrebe kada se prosirilo na 6 prskalica
+//                sendCommand("bozaSub/kuca/node1/radio",vr.dvoristeRadio==true?"0":"1" );
                 //vr.dvoristeRadio= !vr.dvoristeRadio;
                 //if (vr.dvoristeRadio) btnradio.setBackgroundResource(R.drawable.btn_circle_on);
                 //else btnradio.setBackgroundResource(R.drawable.btn_circle_off);
@@ -160,7 +163,7 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v) {
                 boolean stanje = vr.prskalica1;
-                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
                 if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica1","1" );
             }
         });
@@ -169,7 +172,7 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v) {
                 boolean stanje = vr.prskalica2;
-                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
                 if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica2","1" );
             }
         });
@@ -178,7 +181,7 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v) {
                 boolean stanje = vr.prskalica3;
-                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
                 if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica3","1" );
             }
         });
@@ -187,8 +190,26 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v) {
                 boolean stanje = vr.prskalica4;
-                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
                 if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica4","1" );
+            }
+        });
+        //prskalica 5
+        btnPrskalica5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean stanje = vr.prskalica5;
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica5","1" );
+            }
+        });
+        //prskalica 6
+        btnPrskalica6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean stanje = vr.prskalica6;
+                if (vr.prskalica1 || vr.prskalica2 || vr.prskalica3 || vr.prskalica4 || vr.prskalica5 || vr.prskalica6) sendCommand("bozaSub/kuca/node1/prskalicaAll","0");
+                if(!stanje) sendCommand("bozaSub/kuca/node1/prskalica6","1" );
             }
         });
         String clientId = MqttClient.generateClientId();
@@ -255,6 +276,9 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
                         btnPrskalica2.setBackgroundResource(R.drawable.btn_circle_off);
                         btnPrskalica3.setBackgroundResource(R.drawable.btn_circle_off);
                         btnPrskalica4.setBackgroundResource(R.drawable.btn_circle_off);
+                        btnPrskalica5.setBackgroundResource(R.drawable.btn_circle_off);
+                        btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_off);
+
                     }
                 } else if (topic.equals("bozaSub/kuca/node1/timer")) {
                     if (poruka.equals("1")) txtTajmerStanje.setText("Tajmer UKLJUČEN");
@@ -290,6 +314,14 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
                 else if (topic.equals("bozaSub/kuca/node1/prskalica4/stanje")) {//prskalice 4
                     if (poruka.substring(0, 1).equals("1")) btnPrskalica4.setBackgroundResource(R.drawable.btn_circle_on);
                     else if (poruka.substring(0, 1).equals("0")) btnPrskalica4.setBackgroundResource(R.drawable.btn_circle_off);
+                }
+                else if (topic.equals("bozaSub/kuca/node1/prskalica5/stanje")) {//prskalice 5
+                    if (poruka.substring(0, 1).equals("1")) btnPrskalica5.setBackgroundResource(R.drawable.btn_circle_on);
+                    else if (poruka.substring(0, 1).equals("0")) btnPrskalica5.setBackgroundResource(R.drawable.btn_circle_off);
+                }
+                else if (topic.equals("bozaSub/kuca/node1/prskalica6/stanje")) {//prskalice 6
+                    if (poruka.substring(0, 1).equals("1")) btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_on);
+                    else if (poruka.substring(0, 1).equals("0")) btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_off);
                 }
                 else if (topic.equals("bozaSub/kuca/node2/neonka/stanje")) {
                     if (poruka.substring(0, 1).equals("1")) btnsvetlo1.setBackgroundResource(R.drawable.btn_circle_on);
@@ -366,6 +398,10 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         else btnPrskalica3.setBackgroundResource(R.drawable.btn_circle_off);
         if (vr.prskalica4) btnPrskalica4.setBackgroundResource(R.drawable.btn_circle_on);
         else btnPrskalica4.setBackgroundResource(R.drawable.btn_circle_off);
+        if (vr.prskalica5) btnPrskalica5.setBackgroundResource(R.drawable.btn_circle_on);
+        else btnPrskalica5.setBackgroundResource(R.drawable.btn_circle_off);
+        if (vr.prskalica6) btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_on);
+        else btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_off);
     }
     @Override
     protected void onDestroy() {
