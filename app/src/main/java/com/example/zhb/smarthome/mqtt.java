@@ -1,7 +1,5 @@
 package com.example.zhb.smarthome;
 
-import static com.example.zhb.smarthome.R.string.temperaturaNapolje;
-
 public class mqtt {
     Vrednosti vr;
 
@@ -159,6 +157,54 @@ public class mqtt {
         //vreme na mikrokontroleru
         else if (topic.equals("bozaSub/kuca/node1/vremeNaMikrokontroleru/stanje")) {
             vr.vremeMikrokontroler = poruka;
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/ping/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/planogram/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/10/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/11/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/12/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/13/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/14/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/15/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/16/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/00/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/01/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/02/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/03/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/04/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/05/stanje")) {
+
+        }
+        else if (topic.equals("bozaSub/kuca/nodeGrejanje/proveraPlanograma/06/stanje")) {
+
         }
     }
 

@@ -221,8 +221,12 @@ public class Settings extends AppCompatActivity implements NavigationView.OnNavi
 
     //promena vremenske zone
     public void vremenskaZonaPromena(View view){
-        if (spinnerGMT.getSelectedItem().toString().equals("GMT +1"))sendCommand("bozaSub/kuca/node1/vremenskaZona","1");
-        else if (spinnerGMT.getSelectedItem().toString().equals("GMT +2"))sendCommand("bozaSub/kuca/node1/vremenskaZona","2");
+        if (spinnerGMT.getSelectedItem().toString().equals("GMT +1")){
+            sendCommand("bozaSub/kuca/node1/vremenskaZona","1");
+        }
+        else if (spinnerGMT.getSelectedItem().toString().equals("GMT +2")){
+            sendCommand("bozaSub/kuca/node1/vremenskaZona","2");
+        }
     }
     private void sendCommand(String topic, String message)
     {

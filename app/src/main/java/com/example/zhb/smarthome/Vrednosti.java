@@ -1,5 +1,12 @@
 package com.example.zhb.smarthome;
 
+enum vrstaRadaGrejanje {
+    kotao,
+    elektroMotor,
+    plin,
+    nepoznato
+}
+
 public class Vrednosti {
     //senzori
     public static boolean IMEI;
@@ -57,7 +64,30 @@ public class Vrednosti {
     public static boolean nodeFontana = false;
     public static boolean nodeTerasaNeonka = false;
     public static boolean nodeVrataUlazna = false;
+    public static boolean nodeGrejanje = false;
 
+    //grejanje
+    public static int brojVremenaRadniDan = 0;
+    public static boolean kotao = false;
+    public static boolean eletroMotor = false;
+    public static boolean plin = false;
+    public static boolean glavniPrekidac = false;
+    public static boolean temperaturaRelej = false;
 
+    public static vrstaRadaGrejanje vrstaRada = vrstaRadaGrejanje.nepoznato;
 
+    public static String vremeGrejanjaRadniDan1 = "11:00";
+    public static String vremeGrejanjaRadniDan2 = "11:00";
+    public static String vremeGrejanjaRadniDan3 = "11:00";
+    public static String vremeGrejanjaRadniDan4 = "11:00";
+    public static String vremeGrejanjaRadniDan5 = "11:00";
+    public static String vremeGrejanjaRadniDan6 = "11:00";
+
+    public static int brojVremenaVikend = 0;
+    public static String vremeGrejanjaVikend1 = "11:00";
+    public static String vremeGrejanjaVikend2 = "11:00";
+    public static String vremeGrejanjaVikend3 = "11:00";
+    public static String vremeGrejanjaVikend4 = "11:00";
+    public static String vremeGrejanjaVikend5 = "11:00";
+    public static String vremeGrejanjaVikend6 = "11:00";
 }
