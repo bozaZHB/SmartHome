@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/svetlozelena">
+    android:background="@color/svetlozelena"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,878 +18,918 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <LinearLayout
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:paddingBottom="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Temperatura napolje:" />
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="1dp"
-                android:id="@+id/txvTemperatureOutdoor"
-                android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:text="22" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Temperatura dnevni boravak:" />
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="1dp"
-                android:id="@+id/txvTemperatureDnevniBoravak"
-                android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:text="22" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="°C" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Vrsta grejanja:"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButtonElMotor"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/btn_circle_on"
-                    android:padding="13dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/park" />
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:textSize="@dimen/velicina_slova_dvoriste"
-                    android:text="Elektro motor" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temperatura napolje:" />
+
+                <TextView
+                    android:id="@+id/txvTemperatureOutdoor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="1dp"
+                    android:text="22"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButtonKotao"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/btn_circle_on"
-                    android:padding="13dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/park" />
                 <TextView
-                    android:id="@+id/txtKotao"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:textSize="@dimen/velicina_slova_dvoriste"
-                    android:text="Kotao" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temperatura dnevni boravak:" />
+
+                <TextView
+                    android:id="@+id/txvTemperatureDnevniBoravak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="1dp"
+                    android:text="22"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_margin="5dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                android:text="Vrsta grejanja:" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonPlin"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/btn_circle_on"
-                    android:padding="13dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/park" />
-                <TextView
-                    android:id="@+id/txtFontanaPrskalica"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_marginRight="50dp"
                     android:gravity="center"
-                    android:textSize="@dimen/velicina_slova_dvoriste"
-                    android:text="Plin" />
+                    android:orientation="vertical"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonElMotor"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/btn_circle_on"
+                        android:padding="13dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/park" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:text="Elektro motor"
+                        android:textSize="@dimen/velicina_slova_dvoriste" />
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonKotao"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/btn_circle_on"
+                        android:padding="13dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/park" />
+
+                    <TextView
+                        android:id="@+id/txtKotao"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:text="Kotao"
+                        android:textSize="@dimen/velicina_slova_dvoriste" />
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPlin"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/btn_circle_on"
+                        android:padding="13dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/park" />
+
+                    <TextView
+                        android:id="@+id/txtFontanaPrskalica"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:text="Plin"
+                        android:textSize="@dimen/velicina_slova_dvoriste" />
+                </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="Planogram za radne dane (pon-pet):" />
+
+                <ImageView
+                    android:id="@+id/imageButtonSaveWorkingDays"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="40dp"
+                    android:src="@drawable/ic_save_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="24:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWorkingDays1"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkingDays2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWorkingDays2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkingDays3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWorkingDays3"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkingDays4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWorkingDays4"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkingDays5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWorkingDays5"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkingDays6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayFrom6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWorkingDayTo6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWorkingDay6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="Planogram za vikend (sub-ned):" />
+
+                <ImageView
+                    android:id="@+id/imageButtonSaveWeekend"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="40dp"
+                    android:src="@drawable/ic_save_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="24:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWeekend1"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeekend2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWeekend2"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeekend3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWeekend3"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeekend4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWeekend4"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeekend5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <ImageView
+                    android:id="@+id/imbTimeWeekend5"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_alarm_black_24dp" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWeekend6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendFrom6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="00:00" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="do:" />
+
+                <EditText
+                    android:id="@+id/edtTimeWeekendTo6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ems="4"
+                    android:gravity="center"
+                    android:text="00:00" />
+
+                <EditText
+                    android:id="@+id/edtTemperatureWeekend6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:text="23" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Planogram za radne dane (pon-pet):"/>
-            <ImageView
-                android:layout_marginRight="40dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_save_black_24dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayFrom6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWorkingDayTo6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWorkingDay6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Planogram za vikend (sub-ned):"/>
-            <ImageView
-                android:layout_marginRight="40dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_save_black_24dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Od:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedFrom6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="none"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="do:"/>
-
-            <EditText
-                android:id="@+id/edtTimeWeekedTo6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_alarm_black_24dp"
-                android:layout_gravity="center"
-                />
-
-            <EditText
-                android:id="@+id/edtTemperatureWeeked6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C" />
-        </LinearLayout>
-
-    </LinearLayout>
 
     </ScrollView>
 

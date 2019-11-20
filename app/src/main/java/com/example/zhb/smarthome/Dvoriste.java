@@ -403,6 +403,7 @@ public class Dvoriste extends AppCompatActivity implements NavigationView.OnNavi
         if (vr.prskalica6) btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_on);
         else btnPrskalica6.setBackgroundResource(R.drawable.btn_circle_off);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
