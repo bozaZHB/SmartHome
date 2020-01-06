@@ -46,12 +46,6 @@
                     android:layout_marginRight="1dp"
                     android:text="22"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="°C"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,11 +67,26 @@
                     android:layout_marginRight="1dp"
                     android:text="22"
                     android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°C"
+                    android:text="Kotao trenutno:" />
+
+                <TextView
+                    android:id="@+id/txvKotaoStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="1dp"
+                    android:text="NE RADI"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -116,15 +125,15 @@
                         android:layout_height="80dp"
                         android:layout_alignParentTop="true"
                         android:background="@drawable/btn_circle_on"
-                        android:padding="13dp"
+                        android:padding="18dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/park" />
+                        android:src="@drawable/elektro_bojler" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center"
-                        android:text="Elektro motor"
+                        android:text="Elektro"
                         android:textSize="@dimen/velicina_slova_dvoriste" />
                 </LinearLayout>
 
@@ -144,7 +153,7 @@
                         android:background="@drawable/btn_circle_on"
                         android:padding="13dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/park" />
+                        android:src="@drawable/boiler" />
 
                     <TextView
                         android:id="@+id/txtKotao"
@@ -171,7 +180,7 @@
                         android:background="@drawable/btn_circle_on"
                         android:padding="13dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/park" />
+                        android:src="@drawable/valve" />
 
                     <TextView
                         android:id="@+id/txtFontanaPrskalica"
@@ -260,6 +269,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -319,6 +329,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -378,6 +389,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -437,6 +449,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -496,6 +509,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -548,6 +562,7 @@
                     android:layout_marginLeft="40dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -633,6 +648,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -692,6 +708,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -750,6 +767,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:ems="3"
+                    android:inputType="number"
                     android:gravity="center"
                     android:text="23" />
 
@@ -810,6 +828,7 @@
                     android:layout_marginLeft="10dp"
                     android:ems="3"
                     android:gravity="center"
+                    android:inputType="number"
                     android:text="23" />
 
                 <TextView
@@ -868,6 +887,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:ems="3"
+                    android:inputType="number"
                     android:gravity="center"
                     android:text="23" />
 
@@ -920,6 +940,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:ems="3"
+                    android:inputType="number"
                     android:gravity="center"
                     android:text="23" />
 

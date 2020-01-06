@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ import java.util.Calendar;
 
 public class Grejanje extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView txvTemperatureOutdoor, txvTemperatureDnevniBoravak;
+    private TextView txvTemperatureOutdoor, txvTemperatureDnevniBoravak, txvKotaoStatus;
     private ImageButton imageButtonElMotor, imageButtonKotao, imageButtonPlin;
     private ImageView imageButtonSaveWorkingDays, imageButtonSaveWeekend, imbTimeWorkingDays1, imbTimeWorkingDays2, imbTimeWorkingDays3, imbTimeWorkingDays4, imbTimeWorkingDays5;
     private ImageView imageButtonWeekend, imbTimeWeekend1, imbTimeWeekend2, imbTimeWeekend3, imbTimeWeekend4, imbTimeWeekend5;
@@ -77,11 +78,150 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
 
         String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(this.getApplicationContext(), vrednosti.mqttBroker, clientId);//"tcp://192.168.0.17:1883"
+
+        loadInitData();
+    }
+
+    private void loadInitData() {
+        txvKotaoStatus.setText(vrednosti.temperaturaRelej ? "RADI" : "NE RADI");
+        setTypeOfHeating();
+        txvTemperatureDnevniBoravak.setText(vrednosti.temperaturaBoravak);
+
+        if (vrednosti.brojVremenaRadniDan == 1) {
+            llWorkingDays2.setVisibility(View.GONE);
+            llWorkingDays3.setVisibility(View.GONE);
+            llWorkingDays4.setVisibility(View.GONE);
+            llWorkingDays5.setVisibility(View.GONE);
+            llWorkingDays6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaRadniDan == 2) {
+            llWorkingDays2.setVisibility(View.VISIBLE);
+            llWorkingDays3.setVisibility(View.GONE);
+            llWorkingDays4.setVisibility(View.GONE);
+            llWorkingDays5.setVisibility(View.GONE);
+            llWorkingDays6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaRadniDan == 3) {
+            llWorkingDays2.setVisibility(View.VISIBLE);
+            llWorkingDays3.setVisibility(View.VISIBLE);
+            llWorkingDays4.setVisibility(View.GONE);
+            llWorkingDays5.setVisibility(View.GONE);
+            llWorkingDays6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaRadniDan == 4) {
+            llWorkingDays2.setVisibility(View.VISIBLE);
+            llWorkingDays3.setVisibility(View.VISIBLE);
+            llWorkingDays4.setVisibility(View.VISIBLE);
+            llWorkingDays5.setVisibility(View.GONE);
+            llWorkingDays6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaRadniDan == 5) {
+            llWorkingDays2.setVisibility(View.VISIBLE);
+            llWorkingDays3.setVisibility(View.VISIBLE);
+            llWorkingDays4.setVisibility(View.VISIBLE);
+            llWorkingDays5.setVisibility(View.VISIBLE);
+            llWorkingDays6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaRadniDan == 6) {
+            llWorkingDays2.setVisibility(View.VISIBLE);
+            llWorkingDays3.setVisibility(View.VISIBLE);
+            llWorkingDays4.setVisibility(View.VISIBLE);
+            llWorkingDays5.setVisibility(View.VISIBLE);
+            llWorkingDays6.setVisibility(View.VISIBLE);
+        }
+
+        timeWorkingDay1 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan1);
+        timeWorkingDay2 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan2);
+        timeWorkingDay3 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan3);
+        timeWorkingDay4 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan4);
+        timeWorkingDay5 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan5);
+        timeWorkingDay6 = Integer.parseInt(vrednosti.vremeGrejanjaRadniDan6);
+
+        edtTimeWorkingDayTo1.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan1));
+        edtTimeWorkingDayFrom2.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan1));
+        edtTimeWorkingDayTo2.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan2));
+        edtTimeWorkingDayFrom3.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan2));
+        edtTimeWorkingDayTo3.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan3));
+        edtTimeWorkingDayFrom4.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan3));
+        edtTimeWorkingDayTo4.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan4));
+        edtTimeWorkingDayFrom5.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan4));
+        edtTimeWorkingDayTo5.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan5));
+        edtTimeWorkingDayFrom6.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan5));
+        edtTimeWorkingDayTo6.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaRadniDan6));
+
+        edtTemperatureWorkingDay1.setText(vrednosti.temperaturaGrejanjaRadniDan1);
+        edtTemperatureWorkingDay2.setText(vrednosti.temperaturaGrejanjaRadniDan2);
+        edtTemperatureWorkingDay3.setText(vrednosti.temperaturaGrejanjaRadniDan3);
+        edtTemperatureWorkingDay4.setText(vrednosti.temperaturaGrejanjaRadniDan4);
+        edtTemperatureWorkingDay5.setText(vrednosti.temperaturaGrejanjaRadniDan5);
+        edtTemperatureWorkingDay6.setText(vrednosti.temperaturaGrejanjaRadniDan6);
+
+        // vikend
+
+        if (vrednosti.brojVremenaVikend == 1) {
+            llWeekend2.setVisibility(View.GONE);
+            llWeekend3.setVisibility(View.GONE);
+            llWeekend4.setVisibility(View.GONE);
+            llWeekend5.setVisibility(View.GONE);
+            llWeekend6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaVikend == 2) {
+            llWeekend2.setVisibility(View.VISIBLE);
+            llWeekend3.setVisibility(View.GONE);
+            llWeekend4.setVisibility(View.GONE);
+            llWeekend5.setVisibility(View.GONE);
+            llWeekend6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaVikend == 3) {
+            llWeekend2.setVisibility(View.VISIBLE);
+            llWeekend3.setVisibility(View.VISIBLE);
+            llWeekend4.setVisibility(View.GONE);
+            llWeekend5.setVisibility(View.GONE);
+            llWeekend6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaVikend == 4) {
+            llWeekend2.setVisibility(View.VISIBLE);
+            llWeekend3.setVisibility(View.VISIBLE);
+            llWeekend4.setVisibility(View.VISIBLE);
+            llWeekend5.setVisibility(View.GONE);
+            llWeekend6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaVikend == 5) {
+            llWeekend2.setVisibility(View.VISIBLE);
+            llWeekend3.setVisibility(View.VISIBLE);
+            llWeekend4.setVisibility(View.VISIBLE);
+            llWeekend5.setVisibility(View.VISIBLE);
+            llWeekend6.setVisibility(View.GONE);
+        } else if (vrednosti.brojVremenaVikend == 6) {
+            llWeekend2.setVisibility(View.VISIBLE);
+            llWeekend3.setVisibility(View.VISIBLE);
+            llWeekend4.setVisibility(View.VISIBLE);
+            llWeekend5.setVisibility(View.VISIBLE);
+            llWeekend6.setVisibility(View.VISIBLE);
+        }
+
+        timeWeekend1 = Integer.parseInt(vrednosti.vremeGrejanjaVikend1);
+        timeWeekend2 = Integer.parseInt(vrednosti.vremeGrejanjaVikend2);
+        timeWeekend3 = Integer.parseInt(vrednosti.vremeGrejanjaVikend3);
+        timeWeekend4 = Integer.parseInt(vrednosti.vremeGrejanjaVikend4);
+        timeWeekend5 = Integer.parseInt(vrednosti.vremeGrejanjaVikend5);
+        timeWeekend6 = Integer.parseInt(vrednosti.vremeGrejanjaVikend6);
+
+        edtTimeWeekendTo1.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend1));
+        edtTimeWeekendFrom2.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend1));
+        edtTimeWeekendTo2.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend2));
+        edtTimeWeekendFrom3.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend2));
+        edtTimeWeekendTo3.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend3));
+        edtTimeWeekendFrom4.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend3));
+        edtTimeWeekendTo4.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend4));
+        edtTimeWeekendFrom5.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend4));
+        edtTimeWeekendTo5.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend5));
+        edtTimeWeekendFrom6.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend5));
+        edtTimeWeekendTo6.setText(timeFormatFromMessage(vrednosti.vremeGrejanjaVikend6));
+
+        edtTemperatureWeekend1.setText(vrednosti.temperaturaGrejanjaVikend1);
+        edtTemperatureWeekend2.setText(vrednosti.temperaturaGrejanjaVikend2);
+        edtTemperatureWeekend3.setText(vrednosti.temperaturaGrejanjaVikend3);
+        edtTemperatureWeekend4.setText(vrednosti.temperaturaGrejanjaVikend4);
+        edtTemperatureWeekend5.setText(vrednosti.temperaturaGrejanjaVikend5);
+        edtTemperatureWeekend6.setText(vrednosti.temperaturaGrejanjaVikend6);
     }
 
     private void initialization() {
         txvTemperatureOutdoor = findViewById(R.id.txvTemperatureOutdoor);
         txvTemperatureDnevniBoravak = findViewById(R.id.txvTemperatureDnevniBoravak);
+        txvKotaoStatus = findViewById(R.id.txvKotaoStatus);
         imageButtonElMotor = findViewById(R.id.imageButtonElMotor);
         imageButtonKotao = findViewById(R.id.imageButtonKotao);
         imageButtonPlin = findViewById(R.id.imageButtonPlin);
@@ -166,7 +306,6 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
         llWeekend5.setVisibility(View.GONE);
         llWeekend6.setVisibility(View.GONE);
 
-
         edtTimeWorkingDayFrom1.setKeyListener(null);
         edtTimeWorkingDayFrom2.setKeyListener(null);
         edtTimeWorkingDayFrom3.setKeyListener(null);
@@ -197,7 +336,7 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
 
         setListenerChoseTimeWorkingDays();
         setListenerChoseTimeWeekend();
-
+        setListenerForButtons();
     }
 
     @Override
@@ -207,7 +346,7 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
         setStartingGui();
     }
 
-    private void setListenerChoseTimeWorkingDays(){
+    private void setListenerChoseTimeWorkingDays() {
         imbTimeWorkingDays1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +357,7 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = fillingWithZero(selectedHour);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        if (hours.equals("00") && minutes.equals("00")){
+                        if (hours.equals("00") && minutes.equals("00")) {
                             hours = "24";
                             llWorkingDays2.setVisibility(View.GONE);
                             llWorkingDays3.setVisibility(View.GONE);
@@ -227,10 +366,15 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                             llWorkingDays6.setVisibility(View.GONE);
                         } else {
                             llWorkingDays2.setVisibility(View.VISIBLE);
+                            timeWorkingDay2 = 2400;
                             edtTimeWorkingDayTo2.setText("24:00");
+                            llWorkingDays3.setVisibility(View.GONE);
+                            llWorkingDays4.setVisibility(View.GONE);
+                            llWorkingDays5.setVisibility(View.GONE);
+                            llWorkingDays6.setVisibility(View.GONE);
                         }
 
-                        timeWorkingDay1 = Integer.parseInt((hours+minutes));
+                        timeWorkingDay1 = Integer.parseInt((hours + minutes));
 
                         edtTimeWorkingDayTo1.setText(hours + ":" + minutes);
                         edtTimeWorkingDayFrom2.setText(hours + ":" + minutes);
@@ -251,12 +395,12 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWorkingDay2 = Integer.parseInt((hours+minutes));
+                        timeWorkingDay2 = Integer.parseInt((hours + minutes));
 
                         if (timeWorkingDay2 > timeWorkingDay1) {
                             edtTimeWorkingDayTo2.setText(hours + ":" + minutes);
 
-                            if (timeWorkingDay2 == 2400){
+                            if (timeWorkingDay2 == 2400) {
                                 llWorkingDays3.setVisibility(View.GONE);
                                 llWorkingDays4.setVisibility(View.GONE);
                                 llWorkingDays5.setVisibility(View.GONE);
@@ -265,6 +409,10 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                                 llWorkingDays3.setVisibility(View.VISIBLE);
                                 edtTimeWorkingDayFrom3.setText(hours + ":" + minutes);
                                 edtTimeWorkingDayTo3.setText("24:00");
+                                timeWorkingDay3 = 2400;
+                                llWorkingDays4.setVisibility(View.GONE);
+                                llWorkingDays5.setVisibility(View.GONE);
+                                llWorkingDays6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -286,19 +434,22 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWorkingDay3 = Integer.parseInt((hours+minutes));
+                        timeWorkingDay3 = Integer.parseInt((hours + minutes));
 
                         if (timeWorkingDay3 > timeWorkingDay2) {
                             edtTimeWorkingDayTo3.setText(hours + ":" + minutes);
 
-                            if (timeWorkingDay3 == 2400){
+                            if (timeWorkingDay3 == 2400) {
                                 llWorkingDays4.setVisibility(View.GONE);
                                 llWorkingDays5.setVisibility(View.GONE);
                                 llWorkingDays6.setVisibility(View.GONE);
                             } else {
                                 llWorkingDays4.setVisibility(View.VISIBLE);
                                 edtTimeWorkingDayFrom4.setText(hours + ":" + minutes);
+                                timeWorkingDay4 = 2400;
                                 edtTimeWorkingDayTo4.setText("24:00");
+                                llWorkingDays5.setVisibility(View.GONE);
+                                llWorkingDays6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -320,18 +471,20 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWorkingDay4 = Integer.parseInt((hours+minutes));
+                        timeWorkingDay4 = Integer.parseInt((hours + minutes));
 
                         if (timeWorkingDay4 > timeWorkingDay3) {
                             edtTimeWorkingDayTo4.setText(hours + ":" + minutes);
 
-                            if (timeWorkingDay4 == 2400){
+                            if (timeWorkingDay4 == 2400) {
                                 llWorkingDays5.setVisibility(View.GONE);
                                 llWorkingDays6.setVisibility(View.GONE);
                             } else {
                                 llWorkingDays5.setVisibility(View.VISIBLE);
                                 edtTimeWorkingDayFrom5.setText(hours + ":" + minutes);
+                                timeWorkingDay5 = 2400;
                                 edtTimeWorkingDayTo5.setText("24:00");
+                                llWorkingDays6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -353,15 +506,16 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWorkingDay5 = Integer.parseInt((hours+minutes));
+                        timeWorkingDay5 = Integer.parseInt((hours + minutes));
 
                         if (timeWorkingDay5 > timeWorkingDay4) {
                             edtTimeWorkingDayTo5.setText(hours + ":" + minutes);
 
-                            if (timeWorkingDay5 == 2400){
+                            if (timeWorkingDay5 == 2400) {
                                 llWorkingDays6.setVisibility(View.GONE);
                             } else {
                                 llWorkingDays6.setVisibility(View.VISIBLE);
+                                timeWorkingDay6 = 2400;
                                 edtTimeWorkingDayFrom6.setText(hours + ":" + minutes);
                                 edtTimeWorkingDayTo6.setText("24:00");
                             }
@@ -376,7 +530,7 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    private void setListenerChoseTimeWeekend(){
+    private void setListenerChoseTimeWeekend() {
         imbTimeWeekend1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -387,7 +541,7 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = fillingWithZero(selectedHour);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        if (hours.equals("00") && minutes.equals("00")){
+                        if (hours.equals("00") && minutes.equals("00")) {
                             hours = "24";
                             llWeekend2.setVisibility(View.GONE);
                             llWeekend3.setVisibility(View.GONE);
@@ -397,9 +551,14 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         } else {
                             llWeekend2.setVisibility(View.VISIBLE);
                             edtTimeWeekendTo2.setText("24:00");
+                            timeWeekend2 = 2400;
+                            llWeekend3.setVisibility(View.GONE);
+                            llWeekend4.setVisibility(View.GONE);
+                            llWeekend5.setVisibility(View.GONE);
+                            llWeekend6.setVisibility(View.GONE);
                         }
 
-                        timeWeekend1 = Integer.parseInt((hours+minutes));
+                        timeWeekend1 = Integer.parseInt((hours + minutes));
 
                         edtTimeWeekendTo1.setText(hours + ":" + minutes);
                         edtTimeWeekendFrom2.setText(hours + ":" + minutes);
@@ -420,12 +579,12 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWeekend2 = Integer.parseInt((hours+minutes));
+                        timeWeekend2 = Integer.parseInt((hours + minutes));
 
                         if (timeWeekend2 > timeWeekend1) {
                             edtTimeWeekendTo2.setText(hours + ":" + minutes);
 
-                            if (timeWeekend2 == 2400){
+                            if (timeWeekend2 == 2400) {
                                 llWeekend3.setVisibility(View.GONE);
                                 llWeekend4.setVisibility(View.GONE);
                                 llWeekend5.setVisibility(View.GONE);
@@ -434,6 +593,10 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                                 llWeekend3.setVisibility(View.VISIBLE);
                                 edtTimeWeekendFrom3.setText(hours + ":" + minutes);
                                 edtTimeWeekendTo3.setText("24:00");
+                                timeWeekend3 = 2400;
+                                llWeekend4.setVisibility(View.GONE);
+                                llWeekend5.setVisibility(View.GONE);
+                                llWeekend6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -455,12 +618,12 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWeekend3 = Integer.parseInt((hours+minutes));
+                        timeWeekend3 = Integer.parseInt((hours + minutes));
 
                         if (timeWeekend3 > timeWeekend2) {
                             edtTimeWeekendTo3.setText(hours + ":" + minutes);
 
-                            if (timeWeekend3 == 2400){
+                            if (timeWeekend3 == 2400) {
                                 llWeekend4.setVisibility(View.GONE);
                                 llWeekend5.setVisibility(View.GONE);
                                 llWeekend6.setVisibility(View.GONE);
@@ -468,6 +631,9 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                                 llWeekend4.setVisibility(View.VISIBLE);
                                 edtTimeWeekendFrom4.setText(hours + ":" + minutes);
                                 edtTimeWeekendTo4.setText("24:00");
+                                timeWeekend4 = 2400;
+                                llWeekend5.setVisibility(View.GONE);
+                                llWeekend6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -489,18 +655,20 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWeekend4 = Integer.parseInt((hours+minutes));
+                        timeWeekend4 = Integer.parseInt((hours + minutes));
 
                         if (timeWeekend4 > timeWeekend3) {
                             edtTimeWeekendTo4.setText(hours + ":" + minutes);
 
-                            if (timeWeekend4 == 2400){
+                            if (timeWeekend4 == 2400) {
                                 llWeekend5.setVisibility(View.GONE);
                                 llWeekend6.setVisibility(View.GONE);
                             } else {
                                 llWeekend5.setVisibility(View.VISIBLE);
                                 edtTimeWeekendFrom5.setText(hours + ":" + minutes);
                                 edtTimeWeekendTo5.setText("24:00");
+                                timeWeekend5 = 2400;
+                                llWeekend6.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -522,17 +690,18 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                         String hours = set24hIfIs00(fillingWithZero(selectedHour), selectedMinute);
                         String minutes = fillingWithZero(selectedMinute);
 
-                        timeWeekend5 = Integer.parseInt((hours+minutes));
+                        timeWeekend5 = Integer.parseInt((hours + minutes));
 
                         if (timeWeekend5 > timeWeekend4) {
                             edtTimeWeekendTo5.setText(hours + ":" + minutes);
 
-                            if (timeWeekend5 == 2400){
+                            if (timeWeekend5 == 2400) {
                                 llWeekend6.setVisibility(View.GONE);
                             } else {
                                 llWeekend6.setVisibility(View.VISIBLE);
                                 edtTimeWeekendFrom6.setText(hours + ":" + minutes);
                                 edtTimeWeekendTo6.setText("24:00");
+                                timeWeekend6 = 2400;
                             }
                         } else {
                             Toast.makeText(Grejanje.this, "Vreme mora biti veće od prethodnog izabranog vremena", Toast.LENGTH_SHORT).show();
@@ -545,7 +714,107 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    private String set24hIfIs00(String hours, int minutes){
+    private void setListenerForButtons() {
+        imageButtonElMotor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendCommand("bozaSub/kuca/nodeGrejanje/vrstaRada", "0");
+            }
+        });
+
+        imageButtonKotao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendCommand("bozaSub/kuca/nodeGrejanje/vrstaRada", "1");
+            }
+        });
+
+        imageButtonPlin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendCommand("bozaSub/kuca/nodeGrejanje/vrstaRada", "2");
+            }
+        });
+
+        imageButtonSaveWorkingDays.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String messageForSending;
+                String numberOfSegment = "6";
+
+                if (edtTimeWorkingDayTo1.getText().toString().equals("24:00"))
+                    numberOfSegment = "1";
+                else if (edtTimeWorkingDayTo2.getText().toString().equals("24:00"))
+                    numberOfSegment = "2";
+                else if (edtTimeWorkingDayTo3.getText().toString().equals("24:00"))
+                    numberOfSegment = "3";
+                else if (edtTimeWorkingDayTo4.getText().toString().equals("24:00"))
+                    numberOfSegment = "4";
+                else if (edtTimeWorkingDayTo5.getText().toString().equals("24:00"))
+                    numberOfSegment = "5";
+                else if (edtTimeWorkingDayTo6.getText().toString().equals("24:00"))
+                    numberOfSegment = "6";
+                messageForSending = "1" + numberOfSegment;
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay1)) + edtTemperatureWorkingDay1.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay2)) + edtTemperatureWorkingDay2.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay3)) + edtTemperatureWorkingDay3.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay4)) + edtTemperatureWorkingDay4.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay5)) + edtTemperatureWorkingDay5.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWorkingDay6)) + edtTemperatureWorkingDay6.getText().toString();
+                Log.e("poruka", messageForSending);
+                sendCommand("bozaSub/kuca/nodeGrejanje/planogram", messageForSending);
+                Toast.makeText(Grejanje.this, "Poslat planogram za radne dane na server", Toast.LENGTH_SHORT).show();
+                sendCommand("bozaSub/kuca/nodeGrejanje/proveraPlanograma", "1");
+            }
+        });
+
+        imageButtonSaveWeekend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String messageForSending;
+                String numberOfSegment = "6";
+
+                Log.e("poruka", timeWeekend1 + "");
+                Log.e("poruka", timeWeekend2 + "");
+                Log.e("poruka", timeWeekend3 + "");
+                Log.e("poruka", timeWeekend4 + "");
+                Log.e("poruka", timeWeekend5 + "");
+                Log.e("poruka", timeWeekend6 + "");
+                Log.e("poruka", edtTemperatureWeekend1.getText().toString() + "");
+                Log.e("poruka", edtTemperatureWeekend2.getText().toString() + "");
+                Log.e("poruka", edtTemperatureWeekend3.getText().toString() + "");
+                Log.e("poruka", edtTemperatureWeekend4.getText().toString() + "");
+                Log.e("poruka", edtTemperatureWeekend5.getText().toString() + "");
+                Log.e("poruka", edtTemperatureWeekend6.getText().toString() + "");
+
+                if (edtTimeWeekendTo1.getText().toString().equals("24:00"))
+                    numberOfSegment = "1";
+                else if (edtTimeWeekendTo2.getText().toString().equals("24:00"))
+                    numberOfSegment = "2";
+                else if (edtTimeWeekendTo3.getText().toString().equals("24:00"))
+                    numberOfSegment = "3";
+                else if (edtTimeWeekendTo4.getText().toString().equals("24:00"))
+                    numberOfSegment = "4";
+                else if (edtTimeWeekendTo5.getText().toString().equals("24:00"))
+                    numberOfSegment = "5";
+                else if (edtTimeWeekendTo6.getText().toString().equals("24:00"))
+                    numberOfSegment = "6";
+                messageForSending = "0" + numberOfSegment;
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend1)) + edtTemperatureWeekend1.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend2)) + edtTemperatureWeekend2.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend3)) + edtTemperatureWeekend3.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend4)) + edtTemperatureWeekend4.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend5)) + edtTemperatureWeekend5.getText().toString();
+                messageForSending = messageForSending + paddingWithZero(String.valueOf(timeWeekend6)) + edtTemperatureWeekend6.getText().toString();
+                Log.e("poruka", messageForSending);
+                sendCommand("bozaSub/kuca/nodeGrejanje/planogram", messageForSending);
+                Toast.makeText(Grejanje.this, "Poslat planogram za vikend na server", Toast.LENGTH_SHORT).show();
+                sendCommand("bozaSub/kuca/nodeGrejanje/proveraPlanograma", "1");
+            }
+        });
+    }
+
+    private String set24hIfIs00(String hours, int minutes) {
         if (hours.equals("00") && minutes == 0)
             return "24";
         return hours;
@@ -602,6 +871,15 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
                     case "bozaSub/kuca/node2/dvoriste/temperatura":
                         mqttTemperatureOutdoor();
                         break;
+                    case "bozaSub/kuca/nodeGrejanje/temperaturaDnevniBoravak":
+                        txvTemperatureDnevniBoravak.setText(vrednosti.temperaturaBoravak);
+                        break;
+                    case "bozaSub/kuca/nodeGrejanje/vrstaRada/stanje":
+                        setTypeOfHeating();
+                        break;
+                    case "bozaSub/kuca/nodeGrejanje/grejanjeTemp/stanje":
+                        txvKotaoStatus.setText(vrednosti.temperaturaRelej ? "RADI" : "NE RADI");
+                        break;
                 }
             }
 
@@ -610,6 +888,21 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
 
             }
         });
+    }
+
+    private String paddingWithZero(String data) {
+        if (data.length() == 3)
+            return "0" + data;
+        return data;
+    }
+
+    private String timeFormatFromMessage(String message) {
+        String temp = message;
+        if (message.length() == 3) {
+            temp = "0" + message;
+        }
+        temp = temp.substring(0, 2) + ":" + temp.substring(2);
+        return temp;
     }
 
     private void setStartingGui() {
@@ -632,6 +925,22 @@ public class Grejanje extends AppCompatActivity implements NavigationView.OnNavi
             tw.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rain, 0, 0, 0);
         else tw.setCompoundDrawablesWithIntrinsicBounds(R.drawable.snow, 0, 0, 0);
         tw.setText(vrednosti.temperaturaNapolje.substring(0, vrednosti.temperaturaNapolje.indexOf('C')));
+    }
+
+    private void setTypeOfHeating() {
+        if (vrednosti.vrstaRada == vrstaRadaGrejanje.elektroMotor) {
+            imageButtonElMotor.setBackgroundResource(R.drawable.btn_circle_on);
+            imageButtonKotao.setBackgroundResource(R.drawable.btn_circle_off);
+            imageButtonPlin.setBackgroundResource(R.drawable.btn_circle_off);
+        } else if (vrednosti.vrstaRada == vrstaRadaGrejanje.kotao) {
+            imageButtonElMotor.setBackgroundResource(R.drawable.btn_circle_off);
+            imageButtonKotao.setBackgroundResource(R.drawable.btn_circle_on);
+            imageButtonPlin.setBackgroundResource(R.drawable.btn_circle_off);
+        } else if (vrednosti.vrstaRada == vrstaRadaGrejanje.plin) {
+            imageButtonElMotor.setBackgroundResource(R.drawable.btn_circle_off);
+            imageButtonKotao.setBackgroundResource(R.drawable.btn_circle_off);
+            imageButtonPlin.setBackgroundResource(R.drawable.btn_circle_on);
+        }
     }
 
     @Override

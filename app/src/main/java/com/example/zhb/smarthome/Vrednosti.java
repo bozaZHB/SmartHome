@@ -68,6 +68,8 @@ public class Vrednosti {
 
     //grejanje
     public static int brojVremenaRadniDan = 0;
+    public static int brojVremenaVikend = 0;
+
     public static boolean kotao = false;
     public static boolean eletroMotor = false;
     public static boolean plin = false;
@@ -83,11 +85,24 @@ public class Vrednosti {
     public static String vremeGrejanjaRadniDan5 = "11:00";
     public static String vremeGrejanjaRadniDan6 = "11:00";
 
-    public static int brojVremenaVikend = 0;
-    public static String vremeGrejanjaVikend1 = "11:00";
-    public static String vremeGrejanjaVikend2 = "11:00";
-    public static String vremeGrejanjaVikend3 = "11:00";
-    public static String vremeGrejanjaVikend4 = "11:00";
-    public static String vremeGrejanjaVikend5 = "11:00";
-    public static String vremeGrejanjaVikend6 = "11:00";
+    public static String temperaturaGrejanjaRadniDan1 = "11";
+    public static String temperaturaGrejanjaRadniDan2 = "11";
+    public static String temperaturaGrejanjaRadniDan3 = "11";
+    public static String temperaturaGrejanjaRadniDan4 = "11";
+    public static String temperaturaGrejanjaRadniDan5 = "11";
+    public static String temperaturaGrejanjaRadniDan6 = "11";
+
+    public static String vremeGrejanjaVikend1 = "15:00";
+    public static String vremeGrejanjaVikend2 = "15:00";
+    public static String vremeGrejanjaVikend3 = "15:00";
+    public static String vremeGrejanjaVikend4 = "15:00";
+    public static String vremeGrejanjaVikend5 = "15:00";
+    public static String vremeGrejanjaVikend6 = "15:00";
+
+    public static String temperaturaGrejanjaVikend1 = "22";
+    public static String temperaturaGrejanjaVikend2 = "22";
+    public static String temperaturaGrejanjaVikend3 = "22";
+    public static String temperaturaGrejanjaVikend4 = "22";
+    public static String temperaturaGrejanjaVikend5 = "22";
+    public static String temperaturaGrejanjaVikend6 = "22";
 }

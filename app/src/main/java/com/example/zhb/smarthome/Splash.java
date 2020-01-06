@@ -60,7 +60,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(3500);
-                    if (ping){
+                    if (!ping){
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
                     }
